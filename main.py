@@ -7,7 +7,7 @@ import time
 import re
 
 st.set_page_config(
-    page_title="Agentic Career Advisor",
+    page_title="Snellire",
     page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
