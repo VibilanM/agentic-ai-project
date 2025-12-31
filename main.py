@@ -595,14 +595,13 @@ if "resume_text" not in st.session_state:
 if "expectation_text" not in st.session_state:
     st.session_state.expectation_text = None
 
-st.title("Agentic Career Advisor")
+st.title("SNELLIRE")
 st.caption("Your AI-powered partner for career growth")
 
 st.divider()
 
 if not st.session_state.authenticated:
     st.header("Welcome")
-    st.write("Are you a new user or returning user?")
     
     col1, col2 = st.columns(2)
     
