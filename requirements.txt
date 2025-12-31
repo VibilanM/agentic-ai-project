@@ -1,0 +1,8 @@
+requests
+streamlit
+pypdf
+supabase
+openai
+json
+time
+re
