@@ -574,7 +574,7 @@ def resume_analysis(resume_text, goal):
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.metric(label="Match Probability", value=f"{chances}%")
+        st.metric(label="Your chances of landing the job right now:", value=f"{chances}%")
         st.progress(chances / 100)
 
     if "missing_skills" not in data:
