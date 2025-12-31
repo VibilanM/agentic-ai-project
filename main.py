@@ -41,13 +41,23 @@ def check_username_exists(username):
         st.error(f"Error checking username: {e}")
         return False
 
-def create_new_user(username):
+def create_new_user(username, password):
     try:
-        response = supabase.table("user_progress").insert({"username": username}).execute()
+        response = supabase.table("user_progress").insert({"username": username, "password": password}).execute()
         return len(response.data) > 0
     except Exception as e:
         st.error(f"Error creating user: {e}")
         return False
+
+def verify_user_credentials(username, password):
+    try:
+        response = supabase.table("user_progress").select("*").eq("username", username).eq("password", password).execute()
+        if response.data and len(response.data) > 0:
+            return response.data[0]
+        return None
+    except Exception as e:
+        st.error(f"Error verifying credentials: {e}")
+        return None
 
 def load_user_progress(username):
     try:
@@ -612,8 +622,11 @@ if not st.session_state.authenticated:
         if st.session_state.auth_mode == "signup":
             st.subheader("Create New Account")
             new_username = st.text_input("Enter a unique username", key="new_username_input")
+            new_password = st.text_input("Enter a password (min 8 characters)", type="password", key="new_password_input")
             
             username_available = False
+            password_valid = False
+            
             if new_username:
                 if check_username_exists(new_username):
                     st.error("Username already taken. Please choose another.")
@@ -621,10 +634,17 @@ if not st.session_state.authenticated:
                     st.success("Username is available!")
                     username_available = True
             
-            signup_btn = st.button("Sign Up", disabled=not username_available, use_container_width=True)
+            if new_password:
+                if len(new_password) < 8:
+                    st.error("Password must be at least 8 characters.")
+                else:
+                    password_valid = True
             
-            if signup_btn and username_available:
-                if create_new_user(new_username):
+            can_signup = username_available and password_valid
+            signup_btn = st.button("Sign Up", disabled=not can_signup, use_container_width=True)
+            
+            if signup_btn and can_signup:
+                if create_new_user(new_username, new_password):
                     st.session_state.authenticated = True
                     st.session_state.username = new_username
                     st.success("Account created successfully!")
@@ -636,11 +656,13 @@ if not st.session_state.authenticated:
         elif st.session_state.auth_mode == "signin":
             st.subheader("Sign In")
             existing_username = st.text_input("Enter your username", key="existing_username_input")
+            existing_password = st.text_input("Enter your password", type="password", key="existing_password_input")
             
-            signin_btn = st.button("Sign In", disabled=not existing_username, use_container_width=True)
+            can_signin = bool(existing_username and existing_password)
+            signin_btn = st.button("Sign In", disabled=not can_signin, use_container_width=True)
             
-            if signin_btn and existing_username:
-                user_data = load_user_progress(existing_username)
+            if signin_btn and can_signin:
+                user_data = verify_user_credentials(existing_username, existing_password)
                 if user_data:
                     st.session_state.authenticated = True
                     st.session_state.username = existing_username
@@ -649,7 +671,7 @@ if not st.session_state.authenticated:
                     time.sleep(1)
                     st.rerun()
                 else:
-                    st.error("Username not found. Please check your username or sign up.")
+                    st.error("Invalid username or password. Please try again.")
 
 else:
     st.write(f"Signed in as: **{st.session_state.username}**")
