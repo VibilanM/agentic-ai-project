@@ -7,7 +7,7 @@ Upload your resume, tell it your dream job, and it'll figure out exactly what yo
 
 ---
 
-## What It Does
+**What It Does**
 
 1. Resume Analysis – You upload your resume (PDF) and describe your target role. The AI evaluates your current skills against what's needed for that job.
 
