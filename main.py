@@ -390,7 +390,7 @@ try:
 except Exception as e:
     st.error(f"Failed to connect to Supabase: {e}")
 
-openrouter_key = "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"
+openrouter_key = "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"
 headers_openrouter = {
     "Authorization": f"Bearer {openrouter_key}",
     "Content-Type": "application/json"
