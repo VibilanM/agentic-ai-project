@@ -1,12 +1,13 @@
-SNELLIRE
-Your Agentic AI-powered career growth companion.
+# SNELLIRE
+
+**Your Agentic AI-powered career growth companion.**
 
 Snellire is a Streamlit web app that helps you bridge the gap between where you are and where you want to be in your career. 
 Upload your resume, tell it your dream job, and it'll figure out exactly what you need to learn—then guide you through it, step by step.
 
 ---
 
-What It Does
+**What It Does**
 
 1. Resume Analysis – You upload your resume (PDF) and describe your target role. The AI evaluates your current skills against what's needed for that job.
 
@@ -21,7 +22,7 @@ What It Does
 
 ---
 
-Tech Stack
+**Tech Stack**
 
 - Frontend: Streamlit
 - AI: Google Gemma 3 (27B) via OpenRouter API
@@ -30,15 +31,13 @@ Tech Stack
 
 ---
 
-Getting Started
-
-Prerequisites
+**Prerequisites**
 
 - Python 3.8+
 - A Supabase project (free tier)
 - An OpenRouter API key
 
-Installation
+**Installation**
 
 ```
 #Clone the repo
@@ -49,7 +48,7 @@ cd agentic-ai-project
 pip install -r requirements.txt
 ```
 
-Configuration
+**Configuration**
 
 Create a `.streamlit/secrets.toml` file with your API keys:
 
@@ -59,7 +58,7 @@ SUPABASE_KEY = "your-supabase-anon-key"
 OPENROUTER_KEY = "your-openrouter-api-key"
 ```
 
-Database Setup
+**Database Setup**
 
 Create a table called `user_progress` in your Supabase project with these columns:
 
@@ -78,7 +77,7 @@ Create a table called `user_progress` in your Supabase project with these column
 | resume_text        | text               |
 | expectation_text   | text               |
 
-Run It
+**Run It**
 
 ```
 python -m streamlit run main.py
@@ -86,7 +85,7 @@ python -m streamlit run main.py
 
 ---
 
-How It Works Under the Hood
+**How It Works Internally**
 
 Snellire uses a multi-agent approach internally:
 
@@ -100,7 +99,7 @@ The JSON responses are parsed and displayed as interactive step-by-step plans.
 
 ---
 
-Notes
+**Notes**
 
 - Passwords are stored in plain text (since this is a demo project and is not production-ready at the moment)
 - The AI model might occasionally return malformed JSON-- there's retry logic to handle that
