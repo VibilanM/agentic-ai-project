@@ -1,7 +1,4 @@
-requests
 streamlit
 pypdf
 supabase
-json
-time
-re
+requests
